@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using a Map Id</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- jsFiddle will insert css and js -->
+      <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+      </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-NFxF8ybk0BMjDyK_2hJuDwK46_uk6WY&callback=initMap&libraries=&v=beta&map_ids=ffa5e66af52aaa48"
+      defer
+    ></script>
+      <script>/* function initMap() {
+  new google.maps.Map(document.getElementById("map"), {
+    mapId: "ffa5e66af52aaa48",
+    center: { lat: 25.843838765695647, lng: -80.45035016916725 },
+    zoom: 8,
+  });
+} */
+
+
+
+function initMap() {
+  var center = {
+    lat: 26.13864101922083,
+    lng: -80.34633822724533
+  };
+
+
+
+  var locations = [
+    ['<h3>Our Lady Queen of Heaven Cemetery</h3>\
+    <p>1500 S State Rd 7, North Lauderdale, FL 33068<br>\
++1 954-972-1234</p>\
+   <p><a href="https://www.google.com/maps/place/Our+Lady+Queen+of+Heaven+Cemetery/@26.2083088,-80.2045972,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xc36d10c7488b38ca!8m2!3d26.2083088!4d-80.2024085">Get Directions</a></p>', 26.2083088, -80.2045972, "A"],
+    ['<h3>Our Lady Of Mercy Catholic Cemetery</h3>\
+    <p>11411 NW 25th St, Doral, FL 33172<br>\
++1 305-592-0521</p>\
+   <p><a href="https://www.google.com/maps/place/Our+Lady+of+Mercy+Cemetery/@25.797866,-80.3819147,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x118ea1029e0cc26f!8m2!3d25.797866!4d-80.379726">Get Directions</a></p>', 25.797866, -80.3819147, "B"]
+  ];
+
+
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+   mapId: "ffa5e66af52aaa48",
+    zoom: 10,
+    center: center
+  });
+var infowindow =  new google.maps.InfoWindow({});
+
+   var icon = {
+            url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        }; 
+
+var marker, count;
+for (count = 0; count < locations.length; count++) {
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+      map: map,
+      title: locations[count][0],
+      // icon : icon
+         icon : { 
+                //anchor: new google.maps.Point(16, 16),
+                scaledSize: new google.maps.Size(42, 42),
+                url: 'data:image/svg+xml;utf-8, \
+                <svg viewBox="1107.6 347.8 28 42.5" xmlns="http://www.w3.org/2000/svg"> \
+                <defs> \
+                <style type="text/css"> \
+                .st82{opacity:0.2;enable-background:new;} \
+                .st83{fill:rgb(254, 234, 125);stroke:rgb(94, 174, 224);stroke-width:2.2036;stroke-miterlimit:10;} \
+                .st84{fill:rgb(0, 114, 188);} \
+                .st85{font-family:"Roboto-Bold";} \
+                .st86{font-size:17.6284px;} \
+                </style> \
+                </defs> \
+                <path class="st82" d="M1121.6,390.3c8,0,14-1.2,14-2.9c0-2.1-13-3.9-13.5-4c-0.1,0-0.3,0-0.4,0s-0.3,0-0.4,0 c-0.6,0.1-13.5,1.9-13.5,4C1107.7,389.1,1113.7,390.3,1121.6,390.3z"/> \
+                <path class="st83" d="M1121.6,347.8c-8,0-14,6.3-14,14.7c0,10.5,13,20,13.5,20.4c0.1,0.1,0.3,0.1,0.4,0.1s0.3,0,0.4-0.1 c0.6-0.4,13.5-9.9,13.5-20.4C1135.6,354.1,1129.6,347.8,1121.6,347.8z"/> \
+                <text transform="matrix(1 0 0 1 1110.6967 370.5933)" class="st84 st85 st86" style="white-space: pre;"> '+ locations[count][3] + '</text> \
+              </svg>',      
+                }
+    });
+    
+google.maps.event.addListener(marker, 'click', (function (marker, count) {
+      return function () {
+        infowindow.setContent(locations[count][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, count));
+  }
+}
+      </script>
+  </body>
+</html>
+
+
+<!-- 
+https://www.google.com/maps/d/u/0/embed?mid=1gBjSdt1bRGV4R_9RHrbdF9Oe4Ti73_Gd&amp;%3B&amp;ll=26.13864101922083%2C-80.34633822724533&amp;z=9"
+
+ -->
